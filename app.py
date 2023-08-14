@@ -1,9 +1,20 @@
 from flask import Flask, request, jsonify,send_from_directory,render_template
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
+from dotenv import dotenv_values
+import os
+
+
+config = dotenv_values('.env')
+username = config['USERNAME']
+password = config['PASSWORD']
+database_name = config['DATABASE_NAME']
+database_host_name = config['DATABASE_HOST_NAME']
+database_port = config['DATABASE_PORT']
 
 app=Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI']=f"postgresql://{'postgres'}:{'Shiva09'}@{'localhost'}:{'5432'}/{'fmstore'}"
+
+app.config['SQLALCHEMY_DATABASE_URI']=f"postgresql://{username}:{password}@{database_host_name}:{database_port}/{database_name}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 db=SQLAlchemy(app)
 
